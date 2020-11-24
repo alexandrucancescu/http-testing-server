@@ -1,4 +1,4 @@
-# client-test-server
+# http-testing-server
 
 ### Express HTTP server meant for testing HTTP clients and how they behave in certain situations, written in typescript.
 

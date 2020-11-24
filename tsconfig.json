@@ -5,9 +5,7 @@
     "target": "ES2019",
     "outDir": "dist",
     "sourceMap": true,
-    "experimentalDecorators":true,
-    "emitDecoratorMetadata": true,
-
+    "declaration": true,
     "moduleResolution": "node"
   },
 
