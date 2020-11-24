@@ -2,7 +2,7 @@ import * as express from "express"
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import {createServer} from "http";
-import {copyObjectProps} from "./Util";
+import {copyObjectProps} from "./util";
 
 export type TestServer = {
 	close(): Promise<void>;
@@ -15,6 +15,21 @@ export default async function createTestServer(host: string, port: number, log: 
 	app.use(bodyParser.urlencoded({extended: false}));
 	app.use(bodyParser.json());
 	app.use(cookieParser());
+
+	app.get("/wait/:time",(req,res, next)=>{
+		let wait = 1000;
+		if(req.query.time){
+			let _wait = Number.parseInt(req.params.time);
+			if(!isNaN(_wait) && _wait > 0){
+				wait = _wait;
+			}
+		}
+		setTimeout(()=>{
+			res.json({
+				waited: `${wait} ms`,
+			})
+		}, wait)
+	});
 
 	app.use((req,res,next)=>{
 		if(log) {

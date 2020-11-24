@@ -1,7 +1,7 @@
 import {describe, it, before, after} from "mocha";
 import {expect} from "chai";
 import got from "got";
-import createTestServer from "./Server";
+import createTestServer from "./server";
 
 let server;
 

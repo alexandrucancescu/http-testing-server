@@ -40,6 +40,10 @@ runTest().catch(err=>console.error(err));
 
 ## Endpoints
 
+### GET /wait/:ms
+
+Responds after $(ms) milliseconds or 1000ms default,
+
 ### GET /redirects/:*redirectCount*
 
 Will send 302 as many times as redirectCount with location __/redirects/(redirectCount-1__) while redirectCount is greater than 0

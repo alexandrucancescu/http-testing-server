@@ -4,12 +4,26 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const http_1 = require("http");
-const Util_1 = require("./Util");
+const util_1 = require("./util");
 async function createTestServer(host, port, log = false) {
     const app = express();
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(cookieParser());
+    app.get("/wait/:time", (req, res, next) => {
+        let wait = 1000;
+        if (req.query.time) {
+            let _wait = Number.parseInt(req.params.time);
+            if (!isNaN(_wait) && _wait > 0) {
+                wait = _wait;
+            }
+        }
+        setTimeout(() => {
+            res.json({
+                waited: `${wait} ms`,
+            });
+        }, wait);
+    });
     app.use((req, res, next) => {
         if (log) {
             console.log(`${req.method} ${req.path}`);
@@ -73,7 +87,7 @@ async function createTestServer(host, port, log = false) {
             res.status(202).json({ ok: true });
     });
     app.all("/mirror", (req, res, next) => {
-        const copy = Util_1.copyObjectProps(req, [
+        const copy = util_1.copyObjectProps(req, [
             "method", "headers", "body", "query"
         ]);
         res.json(copy);
@@ -121,4 +135,4 @@ async function createTestServer(host, port, log = false) {
     });
 }
 exports.default = createTestServer;
-//# sourceMappingURL=Server.js.map
+//# sourceMappingURL=server.js.map

@@ -3,13 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mocha_1 = require("mocha");
 const chai_1 = require("chai");
 const got_1 = require("got");
-const Server_1 = require("./Server");
+const server_1 = require("./server");
 let server;
 const PORT = 40000 + Math.ceil(Math.random() * 20000);
 const HOST = "localhost";
 const URL = `http://${HOST}:${PORT}`;
 mocha_1.before(async () => {
-    server = await Server_1.default(HOST, PORT);
+    server = await server_1.default(HOST, PORT);
     console.log("Listening on", PORT, "...");
 });
 mocha_1.describe("/redirects", () => {
