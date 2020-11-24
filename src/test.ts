@@ -183,12 +183,8 @@ describe("/mirror", ()=>{
 describe("/wait",()=>{
 	it("should return after aprox 1000",async ()=>{
 		let done = false;
-		const promise = (async ()=>{
-			await got.get(`${URL}/wait/1400`);
-			done = true;
-		})();
 
-		expect(promise).to.not.throw;
+		let promise = got.get(`${URL}/wait/1400`).then(()=>done=true);
 
 		return new Promise<void>((res,rej)=>{
 			setTimeout(()=>{
@@ -199,6 +195,7 @@ describe("/wait",()=>{
 					rej(err);
 				}
 			},1000);
-		})
+			expect(promise).to.not.throw;
+		});
 	});
 });

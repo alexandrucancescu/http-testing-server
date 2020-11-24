@@ -169,11 +169,7 @@ mocha_1.describe("/mirror", () => {
 mocha_1.describe("/wait", () => {
     mocha_1.it("should return after aprox 1000", async () => {
         let done = false;
-        const promise = (async () => {
-            await got_1.default.get(`${URL}/wait/1400`);
-            done = true;
-        })();
-        chai_1.expect(promise).to.not.throw;
+        let promise = got_1.default.get(`${URL}/wait/1400`).then(() => done = true);
         return new Promise((res, rej) => {
             setTimeout(() => {
                 try {
@@ -184,6 +180,7 @@ mocha_1.describe("/wait", () => {
                     rej(err);
                 }
             }, 1000);
+            chai_1.expect(promise).to.not.throw;
         });
     });
 });
