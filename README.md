@@ -65,7 +65,32 @@ the HTTP method used when requesting.
 Useful for testing if your client uses GET when redirected from
 a POST/PUT/DELETE/... request.
 
-### 
+### POST /auth
+
+Post json or x-www-form-urlencoded data to receive a cookie __allowed=true__.
+Should post __username=test__ and __password=test__  
+
+Responds with **200** json ```{contentType: $(CONTENT TYPE USED FOR POST)}``` and cookie __allowed=true__ if username and password is correct  
+Responds with **401** otherwise
+
+### GET /afterAuth
+
+Responds with **200** json ```{ok: true}``` if __allowed=true__ cookie is present  
+Responds with **401** text ```No cookie man 🍪😨``` otherwise
+
+### GET /mirror
+
+Responds with a json copy of the request, containing:
+- Headers
+- HTTP method
+- Query
+- Body
+
+### GET /mirror/:key
+
+Returns same as mirror but only the key requested
+
+ex: __/mirror/headers__ will only send the headers of the request
 
 
 
