@@ -178,5 +178,27 @@ describe("/mirror", ()=>{
 
 		expect((<any>resp.body).body).to.deep.equal(body);
 		expect((<any>resp.body).method).to.deep.equal("POST");
-	})
+	});
+});
+describe("/wait",()=>{
+	it("should return after aprox 1000",async ()=>{
+		let done = false;
+		const promise = (async ()=>{
+			await got.get(`${URL}/wait/1400`);
+			done = true;
+		})();
+
+		expect(promise).to.not.throw;
+
+		return new Promise<void>((res,rej)=>{
+			setTimeout(()=>{
+				try{
+					expect(done).to.be.false;
+					res();
+				}catch (err){
+					rej(err);
+				}
+			},1000);
+		})
+	});
 });

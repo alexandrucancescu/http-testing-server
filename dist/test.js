@@ -166,4 +166,25 @@ mocha_1.describe("/mirror", () => {
         chai_1.expect(resp.body.method).to.deep.equal("POST");
     });
 });
+mocha_1.describe("/wait", () => {
+    mocha_1.it("should return after aprox 1000", async () => {
+        let done = false;
+        const promise = (async () => {
+            await got_1.default.get(`${URL}/wait/1400`);
+            done = true;
+        })();
+        chai_1.expect(promise).to.not.throw;
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                try {
+                    chai_1.expect(done).to.be.false;
+                    res();
+                }
+                catch (err) {
+                    rej(err);
+                }
+            }, 1000);
+        });
+    });
+});
 //# sourceMappingURL=test.js.map

@@ -26,7 +26,7 @@ export default async function createTestServer(host: string, port: number, log: 
 		}
 		setTimeout(()=>{
 			res.json({
-				waited: `${wait} ms`,
+				waited: wait,
 			})
 		}, wait)
 	});

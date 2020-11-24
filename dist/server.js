@@ -20,7 +20,7 @@ async function createTestServer(host, port, log = false) {
         }
         setTimeout(() => {
             res.json({
-                waited: `${wait} ms`,
+                waited: wait,
             });
         }, wait);
     });

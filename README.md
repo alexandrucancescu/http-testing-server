@@ -42,7 +42,8 @@ runTest().catch(err=>console.error(err));
 
 ### GET /wait/:ms
 
-Responds after $(ms) milliseconds or 1000ms default,
+Responds after $(ms) milliseconds or 1000ms default, with 200 json
+```{waited: $(:ms)}```
 
 ### GET /redirects/:*redirectCount*
 
