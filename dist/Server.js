@@ -30,19 +30,6 @@ async function createTestServer(host, port, log = false) {
             console.log("-".repeat(10));
         }
     });
-    app.get("/redirects/:redirCount", (req, res, next) => {
-        var _a, _b;
-        const redirCount = Number.parseInt((_a = req.params) === null || _a === void 0 ? void 0 : _a.redirCount);
-        if (isNaN(redirCount) || redirCount < 0)
-            return res.status(400).send(`Invalid redir count "${(_b = req.params) === null || _b === void 0 ? void 0 : _b.redirCount}"`);
-        res.cookie("redirCookie", redirCount.toString());
-        if (redirCount === 0) {
-            return res.status(200).json({ ok: true });
-        }
-        else {
-            res.redirect(302, `/redirects/${redirCount - 1}`);
-        }
-    });
     app.all("/redirects/method/mirror", (req, res, next) => {
         return res.json({
             method: req.method,
@@ -55,6 +42,19 @@ async function createTestServer(host, port, log = false) {
             code = 302;
         }
         return res.redirect(code, "/redirects/method/mirror");
+    });
+    app.get("/redirects/:redirCount", (req, res, next) => {
+        var _a, _b;
+        const redirCount = Number.parseInt((_a = req.params) === null || _a === void 0 ? void 0 : _a.redirCount);
+        if (isNaN(redirCount) || redirCount < 0)
+            return res.status(400).send(`Invalid redir count "${(_b = req.params) === null || _b === void 0 ? void 0 : _b.redirCount}"`);
+        res.cookie("redirCookie", redirCount.toString());
+        if (redirCount === 0) {
+            return res.status(200).json({ ok: true });
+        }
+        else {
+            res.redirect(302, `/redirects/${redirCount - 1}`);
+        }
     });
     app.post("/auth", (req, res, next) => {
         if (!req.body.username || !req.body.password)
