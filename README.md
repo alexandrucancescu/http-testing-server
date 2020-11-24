@@ -1,5 +1,10 @@
 # http-testing-server
 
+![npm](https://img.shields.io/npm/v/http-testing-server?style=for-the-badge)
+![NPM](https://img.shields.io/npm/l/http-testing-server?color=crimson&style=for-the-badge)
+![npm bundle size](https://img.shields.io/bundlephobia/min/http-testing-server?color=green&label=size&style=for-the-badge)
+![Travis (.org)](https://img.shields.io/travis/alexandrucancescu/http-testing-server?logo=travis-ci&logoColor=ffd700&style=for-the-badge)
+
 ### Express HTTP server meant for testing HTTP clients and how they behave in certain situations, written in typescript.
 
 ## Features
