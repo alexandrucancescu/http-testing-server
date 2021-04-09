@@ -7,6 +7,7 @@ const http_1 = require("http");
 const util_1 = require("./util");
 async function createTestServer(host, port, log = false) {
     const app = express();
+    app.set('trust proxy', '127.0.0.1');
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(cookieParser());

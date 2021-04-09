@@ -11,6 +11,8 @@ export type TestServer = {
 export default async function createTestServer(host: string, port: number, log: boolean=false): Promise<TestServer> {
 	const app = express();
 
+	app.set('trust proxy', '127.0.0.1');
+
 	app.use(bodyParser.urlencoded({extended: false}));
 	app.use(bodyParser.json());
 	app.use(cookieParser());
