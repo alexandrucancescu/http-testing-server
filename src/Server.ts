@@ -8,7 +8,6 @@ export type TestServer = {
 	close(): Promise<void>;
 }
 
-
 export default async function createTestServer(host: string, port: number, log: boolean=false): Promise<TestServer> {
 	const app = express();
 
