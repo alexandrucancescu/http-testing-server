@@ -12,6 +12,10 @@ mocha_1.before(async () => {
     server = await server_1.default(HOST, PORT);
     console.log("Listening on", PORT, "...");
 });
+mocha_1.after(async () => {
+    console.log("closing");
+    await server.close();
+});
 mocha_1.describe("/redirects", () => {
     mocha_1.it("redirect 4 times", async () => {
         const resp = await got_1.default.get(`${URL}/redirects/4`, {
@@ -181,6 +185,9 @@ mocha_1.describe("/wait", () => {
                 }
             }, 1000);
             chai_1.expect(promise).to.not.throw;
+            promise.then(() => {
+                server.close();
+            });
         });
     });
 });

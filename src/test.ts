@@ -1,9 +1,9 @@
 import {describe, it, before, after} from "mocha";
 import {expect} from "chai";
 import got from "got";
-import createTestServer from "./server";
+import createTestServer, {TestServer} from "./server";
 
-let server;
+let server: TestServer;
 
 const PORT = 40000 + Math.ceil(Math.random()*20000);
 const HOST = "localhost";
@@ -12,6 +12,11 @@ const URL  = `http://${HOST}:${PORT}`;
 before(async()=>{
 	server = await createTestServer(HOST, PORT);
 	console.log("Listening on",PORT,"...");
+})
+
+after(async () => {
+	console.log("closing");
+	await server.close();
 })
 
 describe("/redirects", ()=>{
@@ -196,6 +201,11 @@ describe("/wait",()=>{
 				}
 			},1000);
 			expect(promise).to.not.throw;
+
+			promise.then(() => {
+				server.close();
+			})
+
 		});
 	});
 });
